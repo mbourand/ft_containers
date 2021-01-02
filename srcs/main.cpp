@@ -8,6 +8,7 @@
 #include "colors.h"
 
 void test_vector();
+void test_list();
 
 int main()
 {
@@ -21,4 +22,5 @@ int main()
 						  "                                                           \n" <<
 						  std::endl;
 	test_vector();
+	test_list();
 }
