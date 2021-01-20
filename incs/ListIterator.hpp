@@ -64,6 +64,32 @@ namespace ft
 				node = node->prev;
 				return cpy;
 			}
+
+			Node<T>* getNode()
+			{
+				return node;
+			}
+	};
+
+	template<class T>
+	class ConstListIterator : public ListIterator<T>
+	{
+		public:
+			typedef const T& const_reference;
+
+			ConstListIterator& operator=(const ConstListIterator& other)
+			{
+				ListIterator<T>::operator=(other);
+				return *this;
+			}
+
+			ConstListIterator(Node<T>* node)
+			{
+				this->node = node;
+			}
+
+			const_reference operator*() const
+			{ return this->node->val; }
 	};
 
 	template<class T>
@@ -124,6 +150,32 @@ namespace ft
 				node = node->next;
 				return cpy;
 			}
+
+			Node<T>* getNode()
+			{
+				return node;
+			}
+	};
+
+	template<class T>
+	class ReverseConstListIterator : public ReverseListIterator<T>
+	{
+		public:
+			typedef const T& const_reference;
+
+			ReverseConstListIterator& operator=(const ReverseConstListIterator& other)
+			{
+				ListIterator<T>::operator=(other);
+				return *this;
+			}
+
+			ReverseConstListIterator(Node<T>* node)
+			{
+				this->node = node;
+			}
+
+			const_reference operator*() const
+			{ return this->node->val; }
 	};
 }
 

@@ -40,13 +40,13 @@ static bool equal(const T& real, const U& mine)
 static void check_ok(int& tests, bool ok)
 {
 	if (ok)
-		std::cout << GRN << "[Test " << tests << ": OK]";
+		std::cout << GRN << "[" << tests << ": OK]";
 	else
-		std::cout << RED << "[Test " << tests << ": KO]";
-	if (tests % 5 == 0)
+		std::cout << RED << "[" << tests << ": KO]";
+	if (tests % 15 == 0)
 		std::cout << std::endl;
 	else
-		std::cout << '\t' << std::flush;
+		std::cout << ' ' << std::flush;
 	tests++;
 }
 
@@ -468,7 +468,7 @@ static void test_resize()
 		check_ok(test, equal(real, mine));
 	}
 
-	std::cout << std::endl;
+	std::cout << '\n' << std::endl;
 }
 
 static void test_max_size()

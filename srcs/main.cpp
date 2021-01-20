@@ -12,6 +12,7 @@ void test_list();
 
 int main()
 {
+	srand(time(NULL));
 	std::cout << CYN <<   "   __ _                     _        _                     \n" <<
 						  "  / _| |                   | |      (_)                    \n" <<
 						  " | |_| |_    ___ ___  _ __ | |_ __ _ _ _ __   ___ _ __ ___ \n" <<
