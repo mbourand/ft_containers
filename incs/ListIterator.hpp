@@ -39,6 +39,9 @@ namespace ft
 			reference operator*() const
 			{ return node->val; }
 
+			pointer operator->() const
+			{ return &(node->val); }
+
 			ListIterator operator++()
 			{
 				node = node->next;
@@ -75,7 +78,8 @@ namespace ft
 	class ConstListIterator : public ListIterator<T>
 	{
 		public:
-			typedef const T& const_reference;
+			typedef T const & const_reference;
+			typedef T const * const_pointer;
 
 			ConstListIterator& operator=(const ConstListIterator& other)
 			{
@@ -90,6 +94,9 @@ namespace ft
 
 			const_reference operator*() const
 			{ return this->node->val; }
+
+			const_pointer operator->() const
+			{ return &(this->node->val); }
 	};
 
 	template<class T>
@@ -124,6 +131,9 @@ namespace ft
 
 			reference operator*() const
 			{ return node->val; }
+
+			pointer operator->() const
+			{ return &(node->val); }
 
 			ReverseListIterator operator++()
 			{
@@ -161,7 +171,8 @@ namespace ft
 	class ReverseConstListIterator : public ReverseListIterator<T>
 	{
 		public:
-			typedef const T& const_reference;
+			typedef T const & const_reference;
+			typedef T const * const_pointer;
 
 			ReverseConstListIterator& operator=(const ReverseConstListIterator& other)
 			{
@@ -176,6 +187,9 @@ namespace ft
 
 			const_reference operator*() const
 			{ return this->node->val; }
+
+			const_pointer operator->() const
+			{ return &(this->node->val); }
 	};
 }
 

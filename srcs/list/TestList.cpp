@@ -2,36 +2,8 @@
 #include <iostream>
 #include "list.hpp"
 #include "colors.h"
+#include "utils.h"
 #include <cmath>
-
-template<class T, class U>
-static bool equal(T& real, U& mine)
-{
-	typename U::iterator m_it = mine.begin();
-
-	if (real.size() != mine.size())
-	{
-		std::cout << "\nSize not equal" << std::endl;
-		return false;
-	}
-	for (typename T::iterator r_it = real.begin(); r_it != real.end(); r_it++, m_it++)
-		if (*m_it != *r_it)
-			return false;
-	return true;
-}
-
-static void check_ok(int& tests, bool ok)
-{
-	if (ok)
-		std::cout << GRN << "[" << tests << ": OK]";
-	else
-		std::cout << RED << "[" << tests << ": KO]";
-	if (tests % 15 == 0)
-		std::cout << std::endl;
-	else
-		std::cout << ' ' << std::flush;
-	tests++;
-}
 
 static void test_constructors()
 {
@@ -316,14 +288,6 @@ static void test_iterators()
 	}
 
 	std::cout << '\n' << std::endl;
-}
-
-template<class T>
-static T iterator_index(T begin, size_t index)
-{
-	for (size_t i = 0; i < index; i++)
-		begin++;
-	return begin;
 }
 
 static void test_insert()

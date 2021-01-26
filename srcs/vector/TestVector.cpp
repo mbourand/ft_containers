@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "colors.h"
+#include "utils.h"
 
 class TestClass
 {
@@ -35,19 +36,6 @@ static bool equal(const T& real, const U& mine)
 			return false;
 		}
 	return true;
-}
-
-static void check_ok(int& tests, bool ok)
-{
-	if (ok)
-		std::cout << GRN << "[" << tests << ": OK]";
-	else
-		std::cout << RED << "[" << tests << ": KO]";
-	if (tests % 15 == 0)
-		std::cout << std::endl;
-	else
-		std::cout << ' ' << std::flush;
-	tests++;
 }
 
 template<class RealIterator, class MineIterator>

@@ -9,6 +9,7 @@
 
 void test_vector();
 void test_list();
+void test_map();
 
 int main()
 {
@@ -24,4 +25,5 @@ int main()
 						  std::endl;
 	test_vector();
 	test_list();
+	test_map();
 }

@@ -73,6 +73,33 @@ namespace ft
 					push_back(*first);
 			}
 
+			list& operator= (const list& x)
+			{
+				if (!empty())
+				{
+					for (Node<value_type>* node = _elements; node != _end;)
+					{
+						Node<value_type>* tmp = node;
+						node = node->next;
+						delete tmp;
+					}
+				}
+				delete _end;
+				delete _rend;
+
+				const_iterator first = x.begin();
+				const_iterator last = x.end();
+
+				_elements = NULL;
+				_back = NULL;
+				_size = 0;
+				_end = new Node<T>(T(), _back);
+				_rend = new Node<T>(T(), NULL, _elements);
+				for (; first != last; first++)
+					push_back(*first);
+				return *this;
+			}
+
 			~list()
 			{
 				if (!empty())
