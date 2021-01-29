@@ -81,8 +81,7 @@ namespace ft
 			template<class InputIterator>
 			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) : _allocator(alloc), _elements(NULL), _size(0), _capacity(0)
 			{
-				for (; first != last; first++)
-					push_back(*first);
+				assign(first, last);
 			}
 
 			vector(const vector& other) : _allocator(other._allocator), _elements(NULL), _size(other._size), _capacity(other._capacity)
@@ -209,7 +208,7 @@ namespace ft
 
 			size_type max_size() const
 			{
-				return std::numeric_limits<size_type>::max() / (sizeof(vector<value_type>) - sizeof(pointer));
+				return _allocator.max_size();
 			}
 
 			void resize(size_type n, value_type val = value_type())

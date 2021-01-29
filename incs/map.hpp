@@ -84,7 +84,7 @@ namespace ft
 
 			bool empty() const { return _elements.empty(); }
 			size_type size() const { return _elements.size(); }
-			size_type max_size() const { return 0; }
+			size_type max_size() const { return size_type(-1) / (sizeof(int*) * 3 + sizeof(value_type) + sizeof(bool)); }
 
 			void clear() { _elements.clear(); }
 

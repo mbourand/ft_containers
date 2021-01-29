@@ -10,6 +10,8 @@
 void test_vector();
 void test_list();
 void test_map();
+void test_stack();
+void test_queue();
 
 int main()
 {
@@ -26,4 +28,6 @@ int main()
 	test_vector();
 	test_list();
 	test_map();
+	test_stack();
+	test_queue();
 }

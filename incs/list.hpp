@@ -31,14 +31,15 @@ namespace ft
 			Node<value_type>* _end;
 			Node<value_type>* _rend;
 			size_type _size;
+			allocator_type _alloc;
 
 		public:
-			explicit list(const allocator_type& = allocator_type())
-				: _elements(NULL), _back(NULL), _end(new Node<T>(T(), _back)), _rend(new Node<T>(T(), NULL, _elements)), _size(0)
+			explicit list(const allocator_type& alloc = allocator_type())
+				: _elements(NULL), _back(NULL), _end(new Node<T>(T(), _back)), _rend(new Node<T>(T(), NULL, _elements)), _size(0), _alloc(alloc)
 			{}
 
-			explicit list(size_type n, const value_type& val = value_type(), const allocator_type& = allocator_type())
-				: _elements(NULL), _back(NULL), _end(new Node<T>(T(), _back)), _rend(new Node<T>(T(), NULL, _elements)), _size(0)
+			explicit list(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
+				: _elements(NULL), _back(NULL), _end(new Node<T>(T(), _back)), _rend(new Node<T>(T(), NULL, _elements)), _size(0), _alloc(alloc)
 			{
 				if (n == 0)
 					return;
@@ -49,7 +50,7 @@ namespace ft
 			template<class InputIterator>
 			list(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
 			{
-				(void)alloc;
+				_alloc = alloc;
 				_elements = NULL;
 				_back = NULL;
 				_size = 0;
@@ -64,6 +65,7 @@ namespace ft
 				const_iterator first = x.begin();
 				const_iterator last = x.end();
 
+				_alloc = x._alloc;
 				_elements = NULL;
 				_back = NULL;
 				_size = 0;
@@ -95,6 +97,7 @@ namespace ft
 				_size = 0;
 				_end = new Node<T>(T(), _back);
 				_rend = new Node<T>(T(), NULL, _elements);
+				_alloc = x._alloc;
 				for (; first != last; first++)
 					push_back(*first);
 				return *this;
@@ -247,7 +250,7 @@ namespace ft
 
 			size_type max_size() const
 			{
-				return 0;
+				return size_type(-1) / sizeof(Node<value_type>);
 			}
 
 			void pop_front()
@@ -290,7 +293,7 @@ namespace ft
 
 			void sort()
 			{
-				sort(std::less<value_type>());
+				sort(is_less());
 			}
 
 			template<class Compare>
@@ -298,13 +301,13 @@ namespace ft
 			{
 				if (_size < 2)
 					return;
-				for (int i = _size; i > 0; i--)
+				for (size_t i = 0; i < _size - 1; i++)
 				{
 					bool sorted = true;
 					iterator it = begin();
 					iterator it_next = begin();
 					it_next++;
-					for (int j = 0; j < i - 1; j++)
+					for (size_t j = 0; j < _size - i - 1; j++)
 					{
 						if (!comp(*it, *it_next))
 						{
@@ -435,18 +438,16 @@ namespace ft
 
 			void merge(list& x)
 			{
-				if (&x == this)
-					return;
-				splice(x);
-				sort();
+				merge(x, is_less());
 			}
 
 			template<class Compare>
 			void merge(list& x, Compare compare)
 			{
-				if (&x == this)
+				if (&x == this || x.empty())
 					return;
-				splice(x);
+				insert(begin(), x.begin(), x.end());
+				x.clear();
 				sort(compare);
 			}
 
@@ -459,6 +460,15 @@ namespace ft
 			}
 
 			private:
+				class is_less
+				{
+					public:
+						bool operator()(const value_type& a, const value_type& b)
+						{
+							return a < b;
+						}
+				};
+
 				void update_end()
 				{
 					_end->prev = _back;

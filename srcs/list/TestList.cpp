@@ -826,6 +826,121 @@ static void test_relational_operators()
 	std::cout << std::endl;
 }
 
+static void test_merge()
+{
+	std::cout << MAG << "Merge :" << std::endl;
+
+	int test = 1;
+
+	std::list<int> real;
+	ft::list<int> mine;
+
+	std::list<int> real2;
+	ft::list<int> mine2;
+
+	real.merge(real2);
+	mine.merge(mine2);
+
+	check_ok(test, equal(real, mine) && equal(real2, mine2));
+
+
+	for (int i = 0; i < 100; i++)
+	{
+		int r = rand() % 456;
+		real.push_back(r);
+		mine.push_back(r);
+	}
+	real.sort();
+	mine.sort();
+
+	real.merge(real2);
+	mine.merge(mine2);
+	check_ok(test, equal(real, mine) && equal(real2, mine2));
+
+	real.clear();
+	mine.clear();
+
+	for (int i = 0; i < 100; i++)
+	{
+		int r = rand() % 456;
+		real2.push_back(r);
+		mine2.push_back(r);
+	}
+	real2.sort();
+	mine2.sort();
+
+	real.merge(real2);
+	mine.merge(mine2);
+	check_ok(test, equal(real, mine) && equal(real2, mine2));
+
+	for (int i = 0; i < 100; i++)
+	{
+		int r = rand() % 456;
+		real2.push_back(r);
+		mine2.push_back(r);
+	}
+	real2.sort();
+	mine2.sort();
+
+	real.merge(real2);
+	mine.merge(mine2);
+	check_ok(test, equal(real, mine) && equal(real2, mine2));
+
+	real.clear();
+	mine.clear();
+	real2.clear();
+	mine2.clear();
+
+	real.merge(real2, std::greater<int>());
+	mine.merge(mine2, std::greater<int>());
+
+	check_ok(test, equal(real, mine) && equal(real2, mine2));
+
+	for (int i = 0; i < 100; i++)
+	{
+		int r = rand() % 456;
+		real.push_back(r);
+		mine.push_back(r);
+	}
+	real.sort(std::greater<int>());
+	mine.sort(std::greater<int>());
+
+	real.merge(real2, std::greater<int>());
+	mine.merge(mine2, std::greater<int>());
+	check_ok(test, equal(real, mine) && equal(real2, mine2));
+
+	real.clear();
+	mine.clear();
+
+	for (int i = 0; i < 100; i++)
+	{
+		int r = rand() % 456;
+		real2.push_back(r);
+		mine2.push_back(r);
+	}
+	real2.sort(std::greater<int>());
+	mine2.sort(std::greater<int>());
+
+	real.merge(real2, std::greater<int>());
+	mine.merge(mine2, std::greater<int>());
+	check_ok(test, equal(real, mine) && equal(real2, mine2));
+
+	for (int i = 0; i < 100; i++)
+	{
+		int r = rand() % 456;
+		real2.push_back(r);
+		mine2.push_back(r);
+	}
+	real2.sort(std::greater<int>());
+	mine2.sort(std::greater<int>());
+
+	real.merge(real2, std::greater<int>());
+	mine.merge(mine2, std::greater<int>());
+	check_ok(test, equal(real, mine) && equal(real2, mine2));
+
+	std::cout << "\n" << std::endl;
+}
+
 void test_list()
 {
 	std::cout << RES << "-----------------------------------------------------------------\n" << std::endl;
@@ -847,6 +962,7 @@ void test_list()
 	test_resize();
 	test_assign();
 	test_splice();
+	test_merge();
 	test_remove();
 	test_remove_if();
 	test_unique();

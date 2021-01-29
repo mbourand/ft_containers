@@ -503,6 +503,20 @@ static void test_swap()
 	std::cout << "\n" << std::endl;
 }
 
+static void test_max_size()
+{
+	std::cout << MAG << "Max Size :" << std::endl;
+
+	int test = 1;
+
+	std::map<int, std::string> real;
+	ft::map<int, std::string> mine;
+
+	check_ok(test, real.max_size() == mine.max_size());
+
+	std::cout << "\n" << std::endl;
+}
+
 void test_map()
 {
 	std::cout << RES << "-----------------------------------------------------------------\n"
@@ -513,6 +527,7 @@ void test_map()
 						" |_| |_| |_|\\__,_| .__/ \n" <<
 						 "                 |_|    \n" << std::endl;
 	test_constructors();
+	test_max_size();
 	test_clear();
 	test_iterators();
 	test_insert();

@@ -5,6 +5,15 @@
 
 namespace ft
 {
+	template<class T, class Container> class stack;
+
+	template <class T, class Container> bool operator==(const stack<T,Container>& lhs, const stack<T,Container>& rhs);
+	template <class T, class Container> bool operator<=(const stack<T,Container>& lhs, const stack<T,Container>& rhs);
+	template <class T, class Container> bool operator>=(const stack<T,Container>& lhs, const stack<T,Container>& rhs);
+	template <class T, class Container> bool operator>(const stack<T,Container>& lhs, const stack<T,Container>& rhs);
+	template <class T, class Container> bool operator<(const stack<T,Container>& lhs, const stack<T,Container>& rhs);
+	template <class T, class Container> bool operator!=(const stack<T,Container>& lhs, const stack<T,Container>& rhs);
+
 	template<class T, class Container = ft::list<T> >
 	class stack
 	{
@@ -51,6 +60,13 @@ namespace ft
 			{
 				c.pop_back();
 			}
+
+			friend bool operator== <>(const stack<T,Container>& lhs, const stack<T,Container>& rhs);
+			friend bool operator<= <>(const stack<T,Container>& lhs, const stack<T,Container>& rhs);
+			friend bool operator>= <>(const stack<T,Container>& lhs, const stack<T,Container>& rhs);
+			friend bool operator> <>(const stack<T,Container>& lhs, const stack<T,Container>& rhs);
+			friend bool operator< <>(const stack<T,Container>& lhs, const stack<T,Container>& rhs);
+			friend bool operator!= <>(const stack<T,Container>& lhs, const stack<T,Container>& rhs);
 	};
 
 	template <class T, class Container>

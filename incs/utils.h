@@ -3,6 +3,10 @@
 
 #include <map>
 #include "map.hpp"
+#include "stack.hpp"
+#include <stack>
+#include <queue>
+#include "queue.hpp"
 
 template<class T, class U>
 bool equal(T& real, U& mine)
@@ -33,6 +37,42 @@ bool equal(std::map<T, U>& real, ft::map<T, U>& mine)
 	for (typename std::map<T, U>::iterator r_it = real.begin(); r_it != real.end(); r_it++, m_it++)
 		if (m_it->first != r_it->first || m_it->second != r_it->second)
 			return false;
+	return true;
+}
+
+template<class T, class U, class V>
+bool equal(std::stack<T, U> real, ft::stack<T, V> mine)
+{
+	if (real.size() != mine.size())
+	{
+		std::cout << "\nSize not equal" << std::endl;
+		return false;
+	}
+	while (!real.empty())
+	{
+		if (real.top() != mine.top())
+			return false;
+		real.pop();
+		mine.pop();
+	}
+	return true;
+}
+
+template<class T, class U, class V>
+bool equal(std::queue<T, U> real, ft::queue<T, V> mine)
+{
+	if (real.size() != mine.size())
+	{
+		std::cout << "\nSize not equal" << std::endl;
+		return false;
+	}
+	while (!real.empty())
+	{
+		if (real.front() != mine.front())
+			return false;
+		real.pop();
+		mine.pop();
+	}
 	return true;
 }
 

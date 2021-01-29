@@ -9,6 +9,7 @@ namespace ft
 		public:
 			typedef T value_type;
 			typedef value_type* pointer;
+			typedef const value_type* const_pointer;
 			typedef value_type& reference;
 			typedef const value_type& const_reference;
 			typedef ptrdiff_t difference_type;
@@ -118,14 +119,14 @@ namespace ft
 				return *ptr;
 			}
 
-			reference operator->()
+			pointer operator->()
 			{
-				return *ptr;
+				return ptr;
 			}
 
-			const_reference operator->() const
+			const_pointer operator->() const
 			{
-				return *ptr;
+				return ptr;
 			}
 
 			reference operator[](size_t n)
@@ -140,6 +141,7 @@ namespace ft
 		public:
 			typedef T value_type;
 			typedef T* pointer;
+			typedef const T* const_pointer;
 			typedef T& reference;
 			typedef const T& const_reference;
 			typedef ptrdiff_t difference_type;
@@ -249,20 +251,21 @@ namespace ft
 				return *ptr;
 			}
 
-			reference operator->()
+			pointer operator->()
 			{
-				return *ptr;
+				return ptr;
 			}
 
-			const_reference operator->() const
+			const_pointer operator->() const
 			{
-				return *ptr;
+				return ptr;
 			}
 
 			reference operator[](size_t n)
 			{
 				return ptr[n];
 			}
+
 	};
 }
 
