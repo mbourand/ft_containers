@@ -33,6 +33,7 @@ namespace ft
 		private:
 			ft::list<value_type> _elements;
 			key_compare _compare;
+			allocator_type _alloc;
 
 			template<class Type>
 			void swap_type(Type& t, Type& t2) const
@@ -59,19 +60,21 @@ namespace ft
 					}
 			};
 
-			explicit map(const key_compare& comp = key_compare(), const allocator_type& = Allocator())
+			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = Allocator())
 			{
 				_compare = comp;
+				_alloc = alloc;
 			}
 
 			template<class InputIterator>
-			map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& = Allocator())
+			map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = Allocator())
 			{
 				_compare = comp;
+				_alloc = alloc;
 				insert(first, last);
 			}
 
-			map(const map& x) : _elements(x._elements), _compare(x._compare) {}
+			map(const map& x) : _elements(x._elements), _compare(x._compare), _alloc(x._alloc) {}
 
 			iterator begin() { return _elements.begin(); }
 			const_iterator begin() const { return _elements.begin(); }
@@ -84,7 +87,7 @@ namespace ft
 
 			bool empty() const { return _elements.empty(); }
 			size_type size() const { return _elements.size(); }
-			size_type max_size() const { return size_type(-1) / (sizeof(int*) * 3 + sizeof(value_type) + sizeof(bool)); }
+			size_type max_size() const { return std::numeric_limits<size_type>::max() / sizeof(value_type); }
 
 			void clear() { _elements.clear(); }
 
@@ -152,6 +155,7 @@ namespace ft
 			{
 				_elements = other._elements;
 				_compare = other._compare;
+				_alloc = other._alloc;
 				return *this;
 			}
 
@@ -270,7 +274,38 @@ namespace ft
 				for (; first != last; first++)
 					erase(first);
 			}
+
+			bool operator==(const ft::map<key_type, mapped_type>& map) const
+			{
+				return _elements == map._elements;
+			}
+
+			bool operator>(const ft::map<key_type, mapped_type>& map) const
+			{
+				return _elements > map._elements;
+			}
+
+			bool operator<(const ft::map<key_type, mapped_type>& map) const
+			{
+				return _elements < map._elements;
+			}
+
+			bool operator>=(const ft::map<key_type, mapped_type>& map) const
+			{
+				return !(*this < map);
+			}
+
+			bool operator<=(const ft::map<key_type, mapped_type>& map) const
+			{
+				return !(map < *this);
+			}
+
+			bool operator!=(const ft::map<key_type, mapped_type>& map) const
+			{
+				return !(*this == map);
+			}
 	};
+
 }
 
 #endif

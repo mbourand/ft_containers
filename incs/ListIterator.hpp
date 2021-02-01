@@ -6,6 +6,12 @@
 
 namespace ft
 {
+
+	template<class T> class ListIterator;
+	template<class T> class ConstListIterator;
+	template<class T> class ReverseListIterator;
+	template<class T> class ReverseConstListIterator;
+
 	template<class T>
 	class ListIterator
 	{
@@ -72,6 +78,9 @@ namespace ft
 			{
 				return node;
 			}
+
+			operator ConstListIterator<T>() const { return ConstListIterator<T>(node); }
+			operator ListIterator<T>() const { return ListIterator<T>(node); }
 	};
 
 	template<class T>
@@ -97,6 +106,8 @@ namespace ft
 
 			const_pointer operator->() const
 			{ return &(this->node->val); }
+
+			operator ReverseConstListIterator<T>() const { return ReverseConstListIterator<T>(this->node); }
 	};
 
 	template<class T>
@@ -165,6 +176,9 @@ namespace ft
 			{
 				return node;
 			}
+
+			operator ReverseConstListIterator<T>() const { return ReverseConstListIterator<T>(node); }
+			operator ListIterator<T>() const { return ListIterator<T>(node); }
 	};
 
 	template<class T>
@@ -190,6 +204,8 @@ namespace ft
 
 			const_pointer operator->() const
 			{ return &(this->node->val); }
+
+			operator ConstListIterator<T>() const { return ConstListIterator<T>(this->node); }
 	};
 }
 

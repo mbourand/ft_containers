@@ -23,8 +23,8 @@ namespace ft
 			typedef const T* const_pointer;
 			typedef ft::VectorIterator<T> iterator;
 			typedef ft::ReverseVectorIterator<T> reverse_iterator;
-			typedef ft::VectorIterator<const T> const_iterator;
-			typedef ft::ReverseVectorIterator<const T> const_reverse_iterator;
+			typedef ft::ConstVectorIterator<T> const_iterator;
+			typedef ft::ReverseConstVectorIterator<T> const_reverse_iterator;
 			typedef ptrdiff_t difference_type;
 			typedef size_t size_type;
 
@@ -106,7 +106,8 @@ namespace ft
 
 			void push_back(const value_type& val)
 			{
-				reserve(_size + 1);
+				if (capacity() < size() + 1)
+					reserve(get_new_capacity(_size + 1));
 				_allocator.construct(&_elements[_size++], val);
 			}
 
@@ -246,7 +247,7 @@ namespace ft
 				if (n == 0)
 					return ;
 				difference_type gap = position - begin();
-				reserve(_size + n);
+				reserve(get_new_capacity(_size + n));
 				if (empty())
 				{
 					for (size_type i = 0; i < n; i++)
@@ -311,6 +312,8 @@ namespace ft
 			template<class InputIterator>
 			void assign(InputIterator first, InputIterator last)
 			{
+				difference_type n = last - first;
+				reserve(n);
 				clear();
 				for (; first != last; first++)
 					push_back(*first);
@@ -318,6 +321,7 @@ namespace ft
 
 			void assign(size_type n, const value_type& val)
 			{
+				reserve(n);
 				clear();
 				for (size_type i = 0; i < n; i++)
 					push_back(val);
@@ -339,7 +343,7 @@ namespace ft
 					throw std::length_error("requested size is greater than max_size.");
 				if (n <= _capacity)
 					return;
-				realloc_vector(get_new_capacity(n));
+				realloc_vector(n);
 			}
 
 			void swap(vector& x)

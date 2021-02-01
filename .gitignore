@@ -1,3 +1,4 @@
 .vscode
 *.out
 tester_*
+main.cpp

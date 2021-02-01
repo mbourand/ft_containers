@@ -3,6 +3,11 @@
 
 namespace ft
 {
+	template<class T> class VectorIterator;
+	template<class T> class ReverseVectorIterator;
+	template<class T> class ConstVectorIterator;
+	template<class T> class ReverseConstVectorIterator;
+
 	template<class T>
 	class VectorIterator
 	{
@@ -133,6 +138,9 @@ namespace ft
 			{
 				return ptr[n];
 			}
+
+			operator ConstVectorIterator<T>() const { return ConstVectorIterator<T>(ptr); }
+			operator VectorIterator<T>() const { return VectorIterator<T>(ptr); }
 	};
 
 	template<class T>
@@ -266,6 +274,154 @@ namespace ft
 				return ptr[n];
 			}
 
+			operator ReverseConstVectorIterator<T>() const { return ReverseConstVectorIterator<T>(ptr); }
+			operator VectorIterator<T>() const { return VectorIterator<T>(ptr); }
+	};
+
+	template<class T>
+	class ReverseConstVectorIterator : public ReverseVectorIterator<T>
+	{
+		public:
+			typedef T const & reference;
+			typedef T const * pointer;
+
+			ReverseConstVectorIterator(T* ptr)
+			{
+				this->ptr = ptr;
+			}
+
+			ReverseConstVectorIterator& operator=(const ReverseConstVectorIterator& other)
+			{
+				this->ptr = other.ptr;
+				return *this;
+			}
+
+			ReverseConstVectorIterator operator++()
+			{
+				this->ptr--;
+				return *this;
+			}
+
+			ReverseConstVectorIterator operator++(int)
+			{
+				ReverseConstVectorIterator cpy(*this);
+				this->ptr--;
+				return cpy;
+			}
+
+			ReverseConstVectorIterator operator--()
+			{
+				this->ptr++;
+				return *this;
+			}
+
+			ReverseConstVectorIterator operator--(int)
+			{
+				ReverseConstVectorIterator cpy(*this);
+				this->ptr++;
+				return cpy;
+			}
+
+			ReverseConstVectorIterator operator+(int n) const
+			{
+				return this->ptr - n;
+			}
+
+			ReverseConstVectorIterator operator-(int n) const
+			{
+				return this->ptr + n;
+			}
+
+			ReverseConstVectorIterator operator+=(int n)
+			{
+				return this->ptr -= n;
+			}
+
+			ReverseConstVectorIterator operator-=(int n)
+			{
+				return this->ptr += n;
+			}
+
+			reference operator*() const
+			{ return *(this->ptr); }
+
+			pointer operator->() const
+			{ return this->ptr; }
+
+			operator ConstVectorIterator<T>() const { return ConstVectorIterator<T>(this->ptr); }
+	};
+
+	template<class T>
+	class ConstVectorIterator : public VectorIterator<T>
+	{
+		public:
+			typedef T const & reference;
+			typedef T const * pointer;
+
+			ConstVectorIterator(T* ptr)
+			{
+				this->ptr = ptr;
+			}
+
+			reference operator*() const
+			{ return *(this->ptr); }
+
+			pointer operator->() const
+			{ return this->ptr; }
+
+			ConstVectorIterator& operator=(const ConstVectorIterator& other)
+			{
+				this->ptr = other.ptr;
+				return (*this);
+			}
+
+			ConstVectorIterator operator++()
+			{
+				this->ptr++;
+				return *this;
+			}
+
+			ConstVectorIterator operator++(int)
+			{
+				ConstVectorIterator cpy(*this);
+				this->ptr++;
+				return cpy;
+			}
+
+			ConstVectorIterator operator--()
+			{
+				this->ptr--;
+				return *this;
+			}
+
+			ConstVectorIterator operator--(int)
+			{
+				ConstVectorIterator cpy(*this);
+				this->ptr--;
+				return cpy;
+			}
+
+			ConstVectorIterator operator+(int n) const
+			{
+				return this->ptr + n;
+			}
+
+			ConstVectorIterator operator-(int n) const
+			{
+				return this->ptr - n;
+			}
+
+			ConstVectorIterator operator+=(int n)
+			{
+				return this->ptr += n;
+			}
+
+			ConstVectorIterator operator-=(int n)
+			{
+				return this->ptr -= n;
+			}
+
+			operator ReverseConstVectorIterator<T>() const { return ReverseConstVectorIterator<T>(this->ptr); }
 	};
 }
 

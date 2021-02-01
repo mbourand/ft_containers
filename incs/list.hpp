@@ -427,7 +427,7 @@ namespace ft
 
 				for (iterator it = ++begin(); it != end();)
 				{
-					if (!binary_pred(*it, *last))
+					if (binary_pred(*last, *it))
 					{
 						erase(it++);
 						continue;
@@ -477,6 +477,7 @@ namespace ft
 					if (_elements)
 						_elements->prev = _rend;
 					_rend->next = _elements;
+					_rend->prev = _back;
 				}
 
 				template<class Type>
