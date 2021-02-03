@@ -1,4 +1,7 @@
 .vscode
 *.out
 tester_*
+ft_containers
 main.cpp
+tester
+objs/

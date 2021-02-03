@@ -3,7 +3,8 @@
 #include "list.hpp"
 #include "colors.h"
 #include "utils.h"
-#include <cmath>
+#include <math.h>
+#include <cstdlib>
 
 static void test_constructors()
 {
@@ -40,8 +41,9 @@ static void test_push_back()
 
 	for (float f = 0; f < 950; f += 1.1f)
 	{
-		r_def.push_back(std::abs(round(sin(f) * 2 * 3.14159 / 0.5f)));
-		m_def.push_back(std::abs(round(sin(f) * 2 * 3.14159 / 0.5f)));
+		int r = rand() % 54688;
+		r_def.push_back(r);
+		m_def.push_back(r);
 		if (static_cast<int>(f) % 25 == 0)
 			check_ok(test, equal(r_def, m_def));
 	}
@@ -60,8 +62,9 @@ static void test_push_front()
 
 	for (float f = 0; f < 950; f += 1.1f)
 	{
-		r_def.push_front(std::abs(round(sin(f) * 2 * 3.14159 / 0.5f)));
-		m_def.push_front(std::abs(round(sin(f) * 2 * 3.14159 / 0.5f)));
+		int r = rand() % 54876;
+		r_def.push_front(r);
+		m_def.push_front(r);
 		if (static_cast<int>(f) % 25 == 0)
 			check_ok(test, equal(r_def, m_def));
 	}

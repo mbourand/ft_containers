@@ -10,7 +10,7 @@
 
 namespace ft
 {
-	template<class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<ft::pair<const Key, T> > >
+	template<class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<std::pair<const Key, T> > >
 	class map
 	{
 		public:
@@ -87,7 +87,10 @@ namespace ft
 
 			bool empty() const { return _elements.empty(); }
 			size_type size() const { return _elements.size(); }
-			size_type max_size() const { return std::numeric_limits<size_type>::max() / sizeof(value_type); }
+			size_type max_size() const
+			{
+				return size_type(-1) / (sizeof(value_type) + sizeof(size_type) + sizeof(void*) * 3);
+			}
 
 			void clear() { _elements.clear(); }
 

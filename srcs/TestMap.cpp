@@ -514,6 +514,10 @@ static void test_max_size()
 
 	check_ok(test, real.max_size() == mine.max_size());
 
+	std::map<int, int> real2;
+	ft::map<int, int> mine2;
+	check_ok(test, real2.max_size() == mine2.max_size());
+
 	std::cout << "\n" << std::endl;
 }
 
